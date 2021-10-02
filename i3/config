@@ -14,7 +14,7 @@ set $mod Mod4
 exec_always --no-startup-id autotiling
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:adobe source code pro 8
+font pango:Hack Regular Nerd Font Complete Mono 11
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -58,7 +58,9 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec --no-startup-id dmenu_run
+# Rofi
+bindsym $mod+d exec rofi -show run
 # A more modern dmenu replacement is rofi:
 #bindcode $mod+40 exec "rofi -modi drun,run,ssh,combi -show drun -theme solarized -icon-theme Papirus -show-icons"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -117,11 +119,11 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: "
-set $ws2 "2: "
-set $ws3 "3: "
-set $ws4 "4: "
-set $ws5 "5: "
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
@@ -129,30 +131,34 @@ set $ws9 "9"
 set $ws10 "10"
 
 # assign workspaces & autostart
-workspace "10" output DisplayPort-2
-exec terminator 
-assign [class="firefox"] workspace "2: "
-exec --no-startup-id /usr/bin/firefox
-for_window [class="Spotify"] move to workspace "3: "
-exec --no-startup-id /usr/bin/spotify
-assign [class="Pcmanfm"] workspace "5: "
-exec --no-startup-id /usr/bin/Pcmanfm
-for_window [class="Pcmanfm"] floating enable
-for_window [class="Pcmanfm"] resize set 2500 1920
-for_window [class="Pcmanfm"] move position center
-for_window [class="vlc"] floating enable
-for_window [class="kdenlive"] floating enable
-for_window [class="kdenlive"] resize set 2500 1920
-for_window [class="kdenlive"] move position center
-
-# KVM config
-assign [class="Virt-manager"] workspace "4: "
-# exec --no-startup-id virt-manager
-for_window [class="Virt-manager"] floating enable
-for_window [class="Virt-manager"] resize set 2500 1920
-for_window [class="Virt-manager"] move position center
-for_window [instance="sun-awt-X11-XWindowPeer"] focus
-
+# workspace "10" output DisplayPort-2
+# exec terminator
+####################################################################			
+# 		Assign applications to workspace 		   #
+####################################################################
+assign [class="Brave-browser-nightly"] workspace "2" 	             #
+#exec --no-startup-id /usr/bin/firefox 				                     #
+								                                                   #
+# Pcmanfm 							                                           #
+assign [class="Pcmanfm"] workspace "3" 			                       #
+#exec --no-startup-id /usr/bin/Pcmanfm 				                     #
+for_window [class="Pcmanfm"] floating enable 			                 #
+for_window [class="Pcmanfm"] resize set 640 640   		             #
+for_window [class="Pcmanfm"] move position center 		             #
+								                                                   #
+# Discord 							                                           #
+assign [class="discord"] workspace "4" 			                       #
+							 	                                                   #
+# Gimp 							                                               #
+assign [class="Gimp"] workspace "5" 			                         #
+								                                                   #
+# VLC 								                                             #
+assign [class="vlc"] workspace "6" 				                         #
+for_window [class="vlc"] floating enable                           #
+# Office                                                           #
+assign [class="libreoffice-startcenter"] workspace "7"             #
+								                                                   #
+####################################################################
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -181,6 +187,15 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 gaps inner 8
 gaps outer 5
 smart_gaps on
+# additional config
+hide_edge_borders vertical
+smart_gaps on
+for_window [class="^.*"] border pixel 1
+new_window 1pixel
+
+#border pixel 1
+#default_floating_border pixel 1
+
 # gaps
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -339,35 +354,50 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
+#bar {
 	#i3bar_command i3bar -t
-	status_command i3blocks -c /home/lvl/.config/i3blocks/i3blocks.conf
-colors {
-	background #00000080
-	focused_workspace  #00000080 #02adee80 #ffffff
-        active_workspace   #00000080 #5f676a80 #ffffff
-        inactive_workspace #00000080 #00000080 #888888
-        urgent_workspace   #2f343a #900000 #ffffff
-        binding_mode       #2f343a #900000 #ffffff
-}
-	font pango:Droid Sans Mono 11
-	position top
+#	status_command i3blocks -c /home/llog/.config/i3blocks/i3blocks.conf
+#colors {
+#	background #00000080
+#	focused_workspace  #00000080 #02adee80 #ffffff
+#        active_workspace   #00000080 #5f676a80 #ffffff
+#        inactive_workspace #00000080 #00000080 #888888
+#        urgent_workspace   #2f343a #900000 #ffffff
+#        binding_mode       #2f343a #900000 #ffffff
+#}
+#	font pango:Hack Regular Droid Font Complete Mono 12
+#	position top
 #        status_command i3status -c /home/lvl/.config/i3status/i3status.conf
-}
+#}
 
 # Keyboard exec setxkbmap ch &
 
 # Displays
-exec /home/lvl/.screenlayout/virtual1.sh
+# exec /home/lvl/.screenlayout/virtual1.sh
 
 # Nitrogen
 exec nitrogen --restore &
-
+# exec_always feh --bg-fill /path
 # Ibus
-exec ibus &
+# exec ibus &
 
 # Picom
 exec picom -CGb & 
 
 # bar toggle, hide or show 
 bindsym $mod+m bar mode toggle
+
+# Screen shot
+bindsym $mod+p exec flameshot
+
+# Browser
+bindsym $mod+b exec brave-browser-nightly
+
+# Polybar launch script
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+# Fukin Ibus-Bamboo
+exec ibus-daemon -drx &
+
+# File 
+# bindsym $mod+M exec pcmanfm
